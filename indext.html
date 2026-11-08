@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Practice</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        button {
+            background: #173b67;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input {
+            padding: 10px;
+            margin: 8px;
+        }
+
+        #result {
+            color: #173b67;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>JavaScript Practice</h1>
+
+    <h2>Counter</h2>
+
+    <p id="count">0</p>
+
+    <button onclick="increaseCount()">Click Me</button>
+
+    <hr>
+
+    <h2>Personal Greeting</h2>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <button onclick="greetUser()">Submit</button>
+
+    <p id="result"></p>
+
+    <hr>
+
+    <h2>Save Your Name</h2>
+
+    <button onclick="saveName()">Save Name</button>
+
+    <button onclick="loadName()">Load Name</button>
+
+    <p id="savedName"></p>
+
+    <hr>
+
+    <h2>API Example</h2>
+
+    <button onclick="getPost()">Get Data</button>
+
+    <p id="apiResult">Click to load data.</p>
+
+</div>
+
+<script>
+
+    let count = 0;
+
+    function increaseCount() {
+        count++;
+        document.getElementById("count").innerHTML = count;
+    }
+
+    function greetUser() {
+        let name = document.getElementById("name").value;
+
+        document.getElementById("result").innerHTML =
+            "Hello, " + name + "! Welcome to JavaScript.";
+    }
+
+    function saveName() {
+        let name = document.getElementById("name").value;
+
+        localStorage.setItem("username", name);
+
+        alert("Name saved successfully!");
+    }
+
+    function loadName() {
+        let name = localStorage.getItem("username");
+
+        document.getElementById("savedName").innerHTML =
+            "Saved Name: " + (name || "No name saved");
+    }
+
+    async function getPost() {
+        try {
+            let response = await fetch(
+                "https://jsonplaceholder.typicode.com/todos/1"
+            );
+
+            let data = await response.json();
+
+            document.getElementById("apiResult").innerHTML =
+                "Title: " + data.title;
+        } catch (error) {
+            document.getElementById("apiResult").innerHTML =
+                "Unable to load data.";
+        }
+    }
+
+</script>
+
+</body>
+</html>
